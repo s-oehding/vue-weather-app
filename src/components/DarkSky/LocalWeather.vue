@@ -1,16 +1,16 @@
 <template>
-  <div v-if="forecast.currently" id="forecast-wrapper">
+  <div v-if="forecast" id="forecast-wrapper">
     <h2 class="city-name">{{ address }}</h2>
     <div class="weather-situation">
-      <i class="wi" :class="'wi-forecast-io-' + forecast.currently.icon"></i>
-      <span>{{ forecast.currently.apparentTemperature }}&deg; C</span>
+      <i class="wi" :class="'wi-forecast-io-' + forecast.icon"></i>
+      <span>{{ forecast.apparentTemperature }}&deg; C</span>
     </div>
     <div class="weather-summary">
-      <p>{{ forecast.currently.summary }}</p>
+      <p>{{ forecast.summary }}</p>
     </div>
     <div class="wind-situation">
-      <div class="wrapper"><i class="wi wi-wind" :class="'towards-' + forecast.currently.windBearing + '-deg'"></i></div>
-      <span>{{ forecast.currently.windSpeed }} m/s</span>
+      <div class="wrapper"><i class="wi wi-wind" :class="'towards-' + forecast.windBearing + '-deg'"></i></div>
+      <span>{{ forecast.windSpeed }} m/s</span>
     </div>
     <table class="table table-condensed">
       <thead>
@@ -21,8 +21,8 @@
       </thead>
       <tbody>
         <tr>
-          <td><i class="wi wi-thermometer-exterior"></i> {{ forecast.currently.apparentTemperature }}&deg;C</td>
-          <td><i class="wi wi-thermometer"></i> {{ forecast.currently.temperature }}&deg;C</td>
+          <td><i class="wi wi-thermometer-exterior"></i> {{ forecast.apparentTemperature }}&deg;C</td>
+          <td><i class="wi wi-thermometer"></i> {{ forecast.temperature }}&deg;C</td>
         </tr>
       </tbody>
     </table>
@@ -35,23 +35,23 @@
       <tbody>
           <tr>
               <td><i class="wi wi-windy"></i> Wind</td>
-              <td id="weather-widget-wind">{{ forecast.currently.windSpeed }} m/s</td>
+              <td id="weather-widget-wind">{{ forecast.windSpeed }} m/s</td>
           </tr>
           <tr>
               <td><i class="wi wi-cloudy"></i> Cloudiness</td>
-              <td id="weather-widget-cloudiness">{{ forecast.currently.cloudCover }} %</td>
+              <td id="weather-widget-cloudiness">{{ forecast.cloudCover }} %</td>
           </tr>
           <tr>
               <td><i class="wi wi-barometer"></i> Pressure</td>
-              <td id="weather-widget-pressure">{{ forecast.currently.pressure }} hpa</td>
+              <td id="weather-widget-pressure">{{ forecast.pressure }} hpa</td>
           </tr>
           <tr>
               <td><i class="wi wi-humidity"></i> Humidity</td>
-              <td id="weather-widget-humidity">{{ forecast.currently.humidity }} %</td>
+              <td id="weather-widget-humidity">{{ forecast.humidity }} %</td>
           </tr>
           <tr>
               <td><i class="wi wi-sunny"></i> Ozone</td>
-              <td id="weather-widget-sunrise">{{ forecast.currently.ozone }}</td>
+              <td id="weather-widget-sunrise">{{ forecast.ozone }}</td>
           </tr>
       </tbody>
     </table>

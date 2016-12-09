@@ -1,5 +1,5 @@
 <template>
-  <local-weather v-if="ready" :address.sync="address" :forecast="forecast"></local-weather>
+  <local-weather v-if="ready" :address.sync="address" :forecast="forecast.currently"></local-weather>
   <div v-else class="preloader">
     <div class="dot-loader"></div>
   </div>
