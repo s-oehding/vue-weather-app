@@ -6,9 +6,9 @@
 </template>
 
 <script>
-  import LocalWeather from './WeatherData/LocalWeather'
+  import LocalWeather from './OpenWeather/LocalWeather'
   export default {
-    name: 'weather-data',
+    name: 'open-weather',
     components: {
       LocalWeather
     },

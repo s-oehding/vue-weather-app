@@ -32,13 +32,15 @@
       </nav>
     </div>
     <div class="sidebar-wrapper">
-      <weather-data v-if="ready" :lat="location.lat" :lng="location.lng"></weather-data>
+      <!-- <open-weather v-if="ready" :lat="location.lat" :lng="location.lng"></open-weather> -->
+      <dark-sky v-if="ready" :lat="location.lat" :lng="location.lng"></dark-sky>
     </div>
   </div>
 </template>
 
 <script>
-import WeatherData from './components/WeatherData'
+// import OpenWeather from './components/OpenWeather'
+import DarkSky from './components/DarkSky'
 import Gmap from './components/Gmap'
 
 // import WeatherMap from './components/WeatherMap'
@@ -46,7 +48,7 @@ import Gmap from './components/Gmap'
 export default {
   name: 'app',
   components: {
-    WeatherData, Gmap
+    DarkSky, Gmap
   },
   data () {
     return {
