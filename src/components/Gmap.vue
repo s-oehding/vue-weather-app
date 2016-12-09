@@ -30,8 +30,8 @@ export default {
           center: location
         })
         this.map.panBy(offset, 0)
-
         this.geocoder = new google.maps.Geocoder()
+        this.geocodeCoords()
 
         this.marker = new google.maps.Marker({
           position: location,
@@ -55,12 +55,23 @@ export default {
         }
       }.bind(this))
     },
+    geocodeCoords () {
+      var latlng = {lat: parseFloat(this.lat), lng: parseFloat(this.lng)}
+      this.geocoder.geocode({'location': latlng}, function (results, status) {
+        if (status === 'OK') {
+          this.$parent.address = results[1].formatted_address
+        } else {
+          console.log('Geocode was not successful for the following reason: ' + status)
+        }
+      }.bind(this))
+    },
     updateMap () {
       var location = { lat: parseFloat(this.lat), lng: parseFloat(this.lng) }
       var offset = document.body.clientWidth / 100 * 10
       this.map.setCenter(location)
       this.map.panBy(offset, 0)
       this.marker.setPosition(location)
+      this.geocodeCoords()
     }
   },
   resetMap () {

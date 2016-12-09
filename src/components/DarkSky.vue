@@ -1,5 +1,5 @@
 <template>
-  <local-weather v-if="ready" :forecast="forecast"></local-weather>
+  <local-weather v-if="ready" :address.sync="address" :forecast="forecast"></local-weather>
   <div v-else class="preloader">
     <div class="dot-loader"></div>
   </div>
@@ -12,7 +12,7 @@
     components: {
       LocalWeather
     },
-    props: ['lat', 'lng'],
+    props: ['address', 'lat', 'lng'],
     data () {
       return {
         forecast: {},

@@ -33,7 +33,7 @@
     </div>
     <div class="sidebar-wrapper">
       <!-- <open-weather v-if="ready" :lat="location.lat" :lng="location.lng"></open-weather> -->
-      <dark-sky v-if="ready" :lat="location.lat" :lng="location.lng"></dark-sky>
+      <dark-sky v-if="ready" :address.sync="address" :lat="location.lat" :lng="location.lng"></dark-sky>
     </div>
   </div>
 </template>
