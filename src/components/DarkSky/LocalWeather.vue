@@ -1,6 +1,6 @@
 <template>
   <div v-if="forecast.currently" id="forecast-wrapper">
-    <h2 class="city-name">{{ address }}</h2>
+    <h2 class="city-name">{{ address[1].formatted_address }}</h2>
     <div class="weather-situation">
       <i class="wi" :class="'wi-forecast-io-' + forecast.currently.icon"></i>
       <span>{{ forecast.currently.apparentTemperature }}&deg; C</span>

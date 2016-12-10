@@ -1,17 +1,17 @@
 <template>
   <div id="app">
     <div class="map-wrapper">
-      <gmap v-if="ready" :api-key="gmapKey" :lat.sync="location.lat" :lng.sync="location.lng" :address.sync="address" :zoom.sync="zoom" v-on:resetMap="resetMap()"></gmap>
+      <gmap v-if="ready" :api-key="gmapKey" :location.sync="location" :address.sync="address" :newAddress.sync="newAddress" :zoom.sync="zoom" v-on:locationUpdate="locationUpdate" v-on:addressUpdate="addressUpdate" v-on:resetMap="resetMap()"></gmap>
     </div>
     <div class="controls-wrapper">
       <nav class="navbar row">
         <div class="col-2">
           <label for="lat">Latitude</label>
-          <input type="text" name="lat" class="form-input" v-model.lazy="location.lat" placeholder="latitude">
+          <input type="number" name="lat" class="form-input" v-model.lazy="location.lat" placeholder="latitude">
         </div>
         <div class="col-2">
           <label for="lng">Longitude</label>
-          <input type="text" name="lng" class="form-input" v-model.lazy="location.lng" placeholder="longitude">
+          <input type="number" name="lng" class="form-input" v-model.lazy="location.lng" placeholder="longitude">
         </div>
         <div class="col-2">
           <label for="geolocation">Geolocation</label>
@@ -19,7 +19,7 @@
         </div>
         <div class="col-2">
           <label for="address">Geocode Address</label>
-          <input type="text" name="address" class="form-input" v-model.lazy="address" placeholder="Hamburg DE">
+          <input type="text" name="address" class="form-input" v-model.lazy="newAddress" placeholder="Hamburg DE">
         </div>
         <div class="col-2">
           <label for="zoom">Zoom</label>
@@ -33,7 +33,7 @@
     </div>
     <div class="sidebar-wrapper">
       <!-- <open-weather v-if="ready" :lat="location.lat" :lng="location.lng"></open-weather> -->
-      <dark-sky v-if="ready" :address.sync="address" :lat="location.lat" :lng="location.lng"></dark-sky>
+      <dark-sky v-if="address[1]" :address.sync="address" :lat="location.lat" :lng="location.lng"></dark-sky>
     </div>
   </div>
 </template>
@@ -57,7 +57,8 @@ export default {
         lat: null,
         lng: null
       },
-      address: '',
+      address: {},
+      newAddress: '',
       zoom: 10,
       ready: false
     }
@@ -82,6 +83,14 @@ export default {
     },
     resetMap () {
       this.$emit('resetMap')
+    },
+    locationUpdate (newLocation) {
+      // console.log('NewLocation', location)
+      this.location = newLocation
+    },
+    addressUpdate (address) {
+      // console.log('NewAddress', address)
+      this.address = address
     }
   }
 }

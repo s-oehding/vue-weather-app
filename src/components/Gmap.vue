@@ -6,7 +6,7 @@
 import GoogleMapsLoader from 'google-maps'
 export default {
   name: 'gmap',
-  props: ['apiKey', 'lat', 'lng', 'address', 'zoom'],
+  props: ['apiKey', 'location', 'address', 'newAddress', 'zoom'],
   data () {
     return {
       map: {}
@@ -20,57 +20,57 @@ export default {
       // console.log('Mounted GMAP ', this.apiKey, this.lat, this.lng, this)
       GoogleMapsLoader.KEY = this.apiKey
       GoogleMapsLoader.load((google) => {
-        var location = { lat: parseFloat(this.lat), lng: parseFloat(this.lng) }
+        // var location = { lat: parseFloat(this.lat), lng: parseFloat(this.lng) }
         var offset = document.body.clientWidth / 100 * 10
 
         this.map = new google.maps.Map(document.getElementById('map'), {
           zoom: 12,
           disableDefaultUI: true,
           scrollwheel: false,
-          center: location
+          center: this.location
         })
         this.map.panBy(offset, 0)
         this.geocoder = new google.maps.Geocoder()
         this.geocodeCoords()
 
         this.marker = new google.maps.Marker({
-          position: location,
+          position: this.location,
           animation: google.maps.Animation.DROP,
           map: this.map
         })
 
         this.map.addListener('click', function (event) {
-          this.$parent.location.lng = event.latLng.lng()
-          this.$parent.location.lat = event.latLng.lat()
+          var location = { lat: event.latLng.lat(), lng: event.latLng.lng() }
+          this.$emit('locationUpdate', location)
         }.bind(this))
       })
     },
-    geocodeAddress () {
-      this.geocoder.geocode({'address': this.address}, function (results, status) {
+    geocodeAddress (address) {
+      this.geocoder.geocode({'address': address}, function (results, status) {
         if (status === 'OK') {
-          this.$parent.location.lat = results[0].geometry.location.lat()
-          this.$parent.location.lng = results[0].geometry.location.lng()
+          console.log(results)
+          var newLocation = { lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng() }
+          this.$emit('locationUpdate', newLocation)
         } else {
           console.log('Geocode was not successful for the following reason: ' + status)
         }
       }.bind(this))
     },
     geocodeCoords () {
-      var latlng = {lat: parseFloat(this.lat), lng: parseFloat(this.lng)}
-      this.geocoder.geocode({'location': latlng}, function (results, status) {
+      this.geocoder.geocode({'location': this.location}, function (results, status) {
         if (status === 'OK') {
-          this.$parent.address = results[1].formatted_address
+          this.$emit('addressUpdate', results)
         } else {
           console.log('Geocode was not successful for the following reason: ' + status)
         }
       }.bind(this))
     },
     updateMap () {
-      var location = { lat: parseFloat(this.lat), lng: parseFloat(this.lng) }
+      // var location = { lat: parseFloat(this.lat), lng: parseFloat(this.lng) }
       var offset = document.body.clientWidth / 100 * 10
-      this.map.setCenter(location)
+      this.map.setCenter(this.location)
       this.map.panBy(offset, 0)
-      this.marker.setPosition(location)
+      this.marker.setPosition(this.location)
       this.geocodeCoords()
     }
   },
@@ -78,19 +78,15 @@ export default {
     this.map.setCenter(this.marker.getPosition())
   },
   watch: {
-    lat: {
+    location: {
       handler: function (val, oldVal) {
         this.updateMap()
-      }
+      },
+      deep: true
     },
-    lng: {
+    newAddress: {
       handler: function (val, oldVal) {
-        this.updateMap()
-      }
-    },
-    address: {
-      handler: function (val, oldVal) {
-        this.geocodeAddress()
+        this.geocodeAddress(val)
       }
     },
     zoom: {
