@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="map-wrapper">
-      <gmap v-if="ready" :api-key="gmapKey" :location.sync="location" :address.sync="address" :newAddress.sync="newAddress" :zoom.sync="zoom" v-on:locationUpdate="locationUpdate" v-on:addressUpdate="addressUpdate" v-on:resetMap="resetMap()"></gmap>
+      <gmap v-if="ready" :api-key="gmapKey" :location.sync="location" :address.sync="address" :newAddress.sync="newAddress" :zoom.sync="zoom" :reset.sync="reset" v-on:locationUpdate="locationUpdate" v-on:addressUpdate="addressUpdate"></gmap>
     </div>
     <div class="controls-wrapper">
       <nav class="navbar row">
@@ -26,8 +26,8 @@
           <input v-model="zoom" class="form-input" type="range" id="zoom" min="3" max="18" step="1">
         </div> 
         <div class="col-2">
-          <label for="lng">Reset to Marker</label>
-          <a class="btn" v-on:click="resetMap()">Center Map</a>
+          <label>Reset to Marker</label>
+          <button class="btn" v-on:click="resetMap">Center Map</button>
         </div> 
       </nav>
     </div>
@@ -42,8 +42,6 @@
 // import OpenWeather from './components/OpenWeather'
 import DarkSky from './components/DarkSky'
 import Gmap from './components/Gmap'
-
-// import WeatherMap from './components/WeatherMap'
 
 export default {
   name: 'app',
@@ -60,7 +58,8 @@ export default {
       address: {},
       newAddress: '',
       zoom: 10,
-      ready: false
+      ready: false,
+      reset: false
     }
   },
   mounted () {
@@ -82,7 +81,10 @@ export default {
       this.ready = true
     },
     resetMap () {
-      this.$emit('resetMap')
+      this.reset = true
+      this.$nextTick(function () {
+        this.reset = false
+      })
     },
     locationUpdate (newLocation) {
       // console.log('NewLocation', location)

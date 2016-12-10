@@ -6,7 +6,7 @@
 import GoogleMapsLoader from 'google-maps'
 export default {
   name: 'gmap',
-  props: ['apiKey', 'location', 'address', 'newAddress', 'zoom'],
+  props: ['apiKey', 'location', 'address', 'newAddress', 'zoom', 'reset'],
   data () {
     return {
       map: {}
@@ -65,10 +65,11 @@ export default {
       this.map.setCenter(this.location)
       this.marker.setPosition(this.location)
       this.geocodeCoords()
+    },
+    resetMap () {
+      this.map.setCenter(this.marker.getPosition())
+      console.log('reset')
     }
-  },
-  resetMap () {
-    this.map.setCenter(this.marker.getPosition())
   },
   watch: {
     location: {
@@ -85,6 +86,13 @@ export default {
     zoom: {
       handler: function (val, oldVal) {
         this.map.setZoom(parseFloat(this.zoom))
+      }
+    },
+    reset: {
+      handler: function (val, oldVal) {
+        if (val === true) {
+          this.resetMap()
+        }
       }
     }
   },
