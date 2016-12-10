@@ -20,16 +20,12 @@ export default {
       // console.log('Mounted GMAP ', this.apiKey, this.lat, this.lng, this)
       GoogleMapsLoader.KEY = this.apiKey
       GoogleMapsLoader.load((google) => {
-        // var location = { lat: parseFloat(this.lat), lng: parseFloat(this.lng) }
-        var offset = document.body.clientWidth / 100 * 10
-
         this.map = new google.maps.Map(document.getElementById('map'), {
           zoom: 12,
           disableDefaultUI: true,
           scrollwheel: false,
           center: this.location
         })
-        this.map.panBy(offset, 0)
         this.geocoder = new google.maps.Geocoder()
         this.geocodeCoords()
 
@@ -66,10 +62,7 @@ export default {
       }.bind(this))
     },
     updateMap () {
-      // var location = { lat: parseFloat(this.lat), lng: parseFloat(this.lng) }
-      var offset = document.body.clientWidth / 100 * 10
       this.map.setCenter(this.location)
-      this.map.panBy(offset, 0)
       this.marker.setPosition(this.location)
       this.geocodeCoords()
     }
