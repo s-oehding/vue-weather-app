@@ -1,39 +1,32 @@
 <template>
   <div id="app">
-    <div class="map-wrapper">
-      <gmap v-if="ready" :api-key="gmapKey" :location.sync="location" :address.sync="address" :newAddress.sync="newAddress" :zoom.sync="zoom" :reset.sync="reset" v-on:locationUpdate="locationUpdate" v-on:addressUpdate="addressUpdate"></gmap>
+    <div id="app-wrapper" v-if="ready">
+      <div class="map-wrapper">
+        <gmap v-if="ready" :api-key="gmapKey" :location.sync="location" :address.sync="address" :newAddress.sync="newAddress" :zoom.sync="zoom" :reset.sync="reset" v-on:locationUpdate="locationUpdate" v-on:addressUpdate="addressUpdate"></gmap>
+      </div>
+      <div class="controls-wrapper">
+        <navbar @getGeolocation="getGeolocation" @resetMap="resetMap">
+          <div slot="inputs">
+            <label>Get Geolocation</label>
+            <button class="btn" @click="getGeolocation()">Get my Position</button>
+            <label>Reset map to marker</label>
+            <button class="btn" @click="resetMap()">Center Map</button>
+            <label>lat</label>
+            <input type="number" step="any" name="lat" class="form-control" v-model.lazy="location.lat" placeholder="latitude">
+            <label>lng</label>
+            <input type="number" step="any" name="lng" class="form-control" v-model.lazy="location.lng" placeholder="longitude">
+            <label>Search by address</label>
+            <input type="text" name="address" class="form-control" v-model.lazy="newAddress" placeholder="Hamburg DE">
+          </div>
+        </navbar>
+      </div>
+      <div class="sidebar-wrapper">
+        <!-- <open-weather v-if="ready" :lat="location.lat" :lng="location.lng"></open-weather> -->
+        <dark-sky v-if="address[1]" :address.sync="address" :lat="location.lat" :lng="location.lng"></dark-sky>
+      </div>
     </div>
-    <div class="controls-wrapper">
-      <nav class="navbar row">
-        <div class="col-2">
-          <label for="lat">Latitude</label>
-          <input type="number" name="lat" class="form-input" v-model.lazy="location.lat" placeholder="latitude">
-        </div>
-        <div class="col-2">
-          <label for="lng">Longitude</label>
-          <input type="number" name="lng" class="form-input" v-model.lazy="location.lng" placeholder="longitude">
-        </div>
-        <div class="col-2">
-          <label for="geolocation">Geolocation</label>
-          <a class="btn" v-on:click="getGeolocation()">Get my Position</a>
-        </div>
-        <div class="col-2">
-          <label for="address">Geocode Address</label>
-          <input type="text" name="address" class="form-input" v-model.lazy="newAddress" placeholder="Hamburg DE">
-        </div>
-        <div class="col-2">
-          <label for="zoom">Zoom</label>
-          <input v-model="zoom" class="form-input" type="range" id="zoom" min="3" max="18" step="1">
-        </div> 
-        <div class="col-2">
-          <label>Reset to Marker</label>
-          <button class="btn" v-on:click="resetMap">Center Map</button>
-        </div> 
-      </nav>
-    </div>
-    <div class="sidebar-wrapper">
-      <!-- <open-weather v-if="ready" :lat="location.lat" :lng="location.lng"></open-weather> -->
-      <dark-sky v-if="address[1]" :address.sync="address" :lat="location.lat" :lng="location.lng"></dark-sky>
+    <div id="preloader" v-else>
+      <div class="preloader"></div>
     </div>
   </div>
 </template>
@@ -42,11 +35,12 @@
 // import OpenWeather from './components/OpenWeather'
 import DarkSky from './components/DarkSky'
 import Gmap from './components/Gmap'
+import Navbar from './components/Navbar'
 
 export default {
   name: 'app',
   components: {
-    DarkSky, Gmap
+    DarkSky, Gmap, Navbar
   },
   data () {
     return {
@@ -72,13 +66,10 @@ export default {
         gl.getCurrentPosition(function (position) {
           this.location.lng = position.coords.longitude
           this.location.lat = position.coords.latitude
-          // console.log('GEOLOCATION', position.coords)
+          console.log('GEOLOCATION', position.coords)
           this.ready = true
         }.bind(this))
       }
-    },
-    setReady () {
-      this.ready = true
     },
     resetMap () {
       this.reset = true

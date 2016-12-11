@@ -62,13 +62,13 @@ export default {
       }.bind(this))
     },
     updateMap () {
-      this.map.setCenter(this.location)
+      this.map.panTo(this.location)
       this.marker.setPosition(this.location)
       this.geocodeCoords()
     },
     resetMap () {
-      this.map.setCenter(this.marker.getPosition())
-      console.log('reset')
+      this.map.panTo(this.marker.getPosition())
+      // console.log('reset')
     }
   },
   watch: {
