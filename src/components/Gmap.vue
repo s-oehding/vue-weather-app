@@ -39,7 +39,19 @@ export default {
           var location = { lat: event.latLng.lat(), lng: event.latLng.lng() }
           this.$emit('locationUpdate', location)
         }.bind(this))
+
+        this.map.addListener('mousemove', function (event) {
+          this.displayCursorCoordinates(event)
+          console.log(event)
+        }.bind(this))
       })
+    },
+    displayCursorCoordinates (position) {
+      // var cursor = document.getElementById('tdCursor')
+      // var lat = position.latLng.lat()
+      // var lng = position.latLng.lng()
+      // console.log('lat ' + lat + 'lng ' + lng)
+      // cursor.innerHTML = 'lat ' + lat + 'lng ' + lng
     },
     geocodeAddress (address) {
       this.geocoder.geocode({'address': address}, function (results, status) {

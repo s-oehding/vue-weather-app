@@ -3,11 +3,11 @@
     <h2 class="city-name">{{ address[1].formatted_address }}</h2>
     <p class="weather-summary">{{ forecast.currently.summary }}</p>
     <div class="weather-situation">
-      <i class="wi" :class="'wi-forecast-io-' + forecast.currently.icon"></i>
+      <div class="icon-wrapper"><i class="wi" :class="'wi-forecast-io-' + forecast.currently.icon"></i></div>
       <span>{{ forecast.currently.apparentTemperature }}&deg; C</span>
     </div>
     <div class="wind-situation">
-      <div class="wrapper"><i class="wi wi-wind" :class="'towards-' + forecast.currently.windBearing + '-deg'" :title="forecast.currently.windBearing + '°'"></i></div>
+      <div class="icon-wrapper"><i class="wi wi-wind" :class="'towards-' + forecast.currently.windBearing + '-deg'" :title="forecast.currently.windBearing + '°'"></i></div>
       <span>{{ forecast.currently.windSpeed }} m/s</span>
     </div>
     <table class="temp table table-condensed">

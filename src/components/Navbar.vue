@@ -1,9 +1,12 @@
 <template>
   <b-navbar type="light" variant="default" full>
     <a class="navbar-brand" href="#">ML Weather</a>
-    <div class="form-inline navbar-form">
+    <form class="form-inline navbar-form float-xs-left">
       <slot name="inputs"></slot>
-    </div>
+    </form>
+    <form class="form-inline navbar-form float-xs-right">
+      <slot name="buttons"></slot>
+    </form>
   </b-navbar>
 </template>
 
