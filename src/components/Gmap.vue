@@ -24,6 +24,7 @@ export default {
           zoom: 12,
           disableDefaultUI: true,
           scrollwheel: false,
+          draggableCursor: 'crosshair',
           center: this.location
         })
         this.geocoder = new google.maps.Geocoder()
