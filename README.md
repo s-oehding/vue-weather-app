@@ -1,6 +1,6 @@
 # Weather Map
 
-> A Vue.js project
+> DEMO: [Vue weathermap](https://s-oehding.github.io/vue-weather-app "Demo")
 
 ## Description
 
