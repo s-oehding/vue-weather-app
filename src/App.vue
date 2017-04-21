@@ -3,28 +3,22 @@
     <div v-if="ready">
       <navbar @getGeolocation="getGeolocation" @resetMap="resetMap">
         <div slot="inputs">
-          <fieldset class="form-group">
-          <label>lat</label>
-          <input type="number" step="any" name="lat" class="form-control" v-model.lazy="location.lat" placeholder="latitude">
-          </fieldset>
-          <fieldset class="form-group">
-          <label>lng</label>
-          <input type="number" step="any" name="lng" class="form-control" v-model.lazy="location.lng" placeholder="longitude">
-          </fieldset>
-          <fieldset class="form-group">
-          <label>Search by address</label>
-          <input type="text" name="address" class="form-control" v-model.lazy="newAddress" placeholder="Hamburg DE">
-          </fieldset>
+          <form class="form-inline my-2 my-lg-0">
+            <label class="mr-sm-2">lat</label>
+            <input type="number" step="any" name="lat" class="form-control mr-sm-2" v-model.lazy="location.lat" placeholder="latitude">
+            <label class="mr-sm-2">lng</label>
+            <input type="number" step="any" name="lng" class="form-control mr-sm-2" v-model.lazy="location.lng" placeholder="longitude">
+            <label class="mr-sm-2">Search by address</label>
+            <input type="text" name="address" class="form-control mr-sm-2" v-model.lazy="newAddress" placeholder="Hamburg DE">
+          </form>
         </div>
         <div slot="buttons">
-          <fieldset class="form-group">
-            <label>Get Geolocation</label>
-            <button class="btn btn-outline-success" @click="getGeolocation()">Get my Position</button>
-          </fieldset>
-          <fieldset class="form-group">
-            <label>Reset map to marker</label>
-            <button class="btn btn-outline-warning" @click="resetMap()">Center Map</button>
-          </fieldset>
+          <form class="form-inline my-2 my-lg-0">
+            <label class="mr-sm-2">Get Geolocation</label>
+            <button class="btn btn-outline-success mr-sm-2" @click="getGeolocation()">Get my Position</button>
+            <label class="mr-sm-2">Reset map to marker</label>
+            <button class="btn btn-outline-warning mr-sm-2" @click="resetMap()">Center Map</button>
+          </form>
         </div>
       </navbar>
       <!-- Begin page content -->
@@ -38,11 +32,11 @@
         </div>
       </div>
 
-      <!-- <footer class="footer">
+      <footer class="footer">
         <div class="container">
           <span class="text-muted">Place sticky footer content here.</span>
         </div>
-      </footer> -->
+      </footer>
     </div>
     <div id="preloader" v-else>
       <div class="preloader"></div>
@@ -51,7 +45,6 @@
 </template>
 
 <script>
-// import OpenWeather from './components/OpenWeather'
 import DarkSky from './components/DarkSky'
 import Gmap from './components/Gmap'
 import Navbar from './components/Navbar'

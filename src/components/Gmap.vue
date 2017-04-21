@@ -43,7 +43,7 @@ export default {
 
         this.map.addListener('mousemove', function (event) {
           this.displayCursorCoordinates(event)
-          console.log(event)
+          // console.log(event)
         }.bind(this))
       })
     },

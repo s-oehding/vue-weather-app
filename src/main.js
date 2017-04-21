@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
-import BootstrapVue from 'bootstrap-vue'
+// import BootstrapVue from 'bootstrap-vue'
 
 import App from './App'
 
 Vue.use(VueResource)
 Vue.use(VueRouter)
-Vue.use(BootstrapVue)
+// Vue.use(BootstrapVue)
 
 Vue.http.options.xhr = {withCredentials: true}
 
