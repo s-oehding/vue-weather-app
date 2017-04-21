@@ -31,12 +31,6 @@
           <dark-sky v-if="address[1]" :address.sync="address" :lat="location.lat" :lng="location.lng"></dark-sky>
         </div>
       </div>
-
-      <footer class="footer">
-        <div class="container">
-          <span class="text-muted">Place sticky footer content here.</span>
-        </div>
-      </footer>
     </div>
     <div id="preloader" v-else>
       <div class="preloader"></div>
