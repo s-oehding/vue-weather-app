@@ -11,6 +11,7 @@
     "deploy": "node_modules/gh-pages/bin/gh-pages -d dist"
   },
   "dependencies": {
+    "bootstrap": "^4.0.0-alpha.6",
     "google-maps": "^3.2.1",
     "gsap": "^1.19.0",
     "marker-clusterer-plus": "^2.1.4",
@@ -20,6 +21,7 @@
     "vue": "^2.0.1",
     "vue-resource": "^1.0.3",
     "vue-router": "^2.1.1",
+    "vue-template-compiler": "^2.2.6",
     "vue2-google-maps": "^0.4.3"
   },
   "devDependencies": {
@@ -60,7 +62,7 @@
     "shelljs": "^0.7.4",
     "tls": "0.0.1",
     "url-loader": "^0.5.7",
-    "vue-loader": "^9.4.0",
+    "vue-loader": "^10.0.0",
     "vue-style-loader": "^1.0.0",
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.8.3",

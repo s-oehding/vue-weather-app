@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     getGeolocation () {
-      if ('geolocation' in navigator) {
+      if (navigator.geolocation) {
         var gl = navigator.geolocation
         gl.getCurrentPosition(function (position) {
           this.location.lng = position.coords.longitude
